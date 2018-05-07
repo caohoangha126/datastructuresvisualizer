@@ -10,8 +10,6 @@ import javax.swing.*;
  *  @version May 7th, 2018
  */
 
-// why wasn't access working? you deleted the thing that was supposed to make it cyan
-
 public class ArrayCanvas extends JComponent {	
 	private static final long serialVersionUID = 1L;
 	/** The array */
@@ -98,6 +96,7 @@ public class ArrayCanvas extends JComponent {
 	public void paintComponent(Graphics g) {
 			Color c = Color.BLUE;
 			for (int i = 0; i < arr.length; i++){
+				// Change the color to RED if the element is what user is looking for
 				if (i == access){
 					c = Color.RED;
 				} else {
