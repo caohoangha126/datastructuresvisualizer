@@ -3,10 +3,10 @@ import java.util.Timer;
 import java.awt.*;
 import javax.swing.*;  
 /**
- *  Implement a graphical canvas that displays an array
+ *  A class to implement a graphical canvas that displays an array
  *  elements demonstrated by rectangles
  *
- *  @author  Ha Cao (modded by Sarah Abowitz)
+ *  @author  Ha Cao, Sarah Abowitz
  *  @version May 7th, 2018
  */
 
@@ -55,7 +55,8 @@ public class ArrayCanvas extends JComponent {
     	int j = 0;
     	Timer timer = new Timer();
     	long delay = 1500;
-    	for (j = 0; j <= arr.length; j++){
+    	boolean found = false;
+    	for (j = 0; j < arr.length; j++) {
     		final int i = j;
     		timer.schedule(new TimerTask(){
     			@Override
@@ -65,7 +66,6 @@ public class ArrayCanvas extends JComponent {
 	    					annotations.add("");
 	    				} else if (arr[i] == match){
 	    					annotations.add("Query found!");
-	    					// break;
 	    				} else {
 	    					annotations.add("Still searching ...");
 	    				}
@@ -77,10 +77,24 @@ public class ArrayCanvas extends JComponent {
     		}, delay*(j+1));  
     		ArrayCanvas.this.repaint();
     		if (arr[j] == match){
+    			found = true;
     			break;
     		}
     	}
     	annotations.clear();
+    	if (!found) {
+    		timer.schedule(new TimerTask(){
+    			@Override
+    			public void run(){
+    				JFrame frame = new JFrame("");
+    				// Result
+    				JOptionPane.showMessageDialog(frame,
+    						"The value doesn't exist.",
+    						"No Such Value Found",
+    						JOptionPane.INFORMATION_MESSAGE);
+    			}
+    		}, delay*(arr.length+1));   			
+    	}
     }
     
     public void arrAccess(int index){

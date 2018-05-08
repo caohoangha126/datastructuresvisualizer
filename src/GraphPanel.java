@@ -7,8 +7,9 @@ import java.util.Queue;
 import javax.swing.*;        
 
 /**
- * A panel to display graph
- * @author Ha Cao and Sarah Abowitz
+ * A class to implement a graphical panel to display a graph
+ * 
+ * @author Ha Cao
  * @version Apr 7th, 2018
  */
 public class GraphPanel {
@@ -208,7 +209,7 @@ public class GraphPanel {
 
 	/** Constants for recording the input mode */
 	enum InputMode {
-		ADD_NODES, RMV_NODES, ADD_EDGES, RMV_EDGES, BFT, DFT, SHORTEST_PATH_TO_ALL, SHORTEST_PATH_TO_ONE, CLEAR_CONTENT
+		ADD_NODES, RMV_NODES, ADD_EDGES, RMV_EDGES, BFT, DFT, SHORTEST_PATH_TO_ALL, SHORTEST_PATH_TO_ONE
 	}
 
 	/** Listener for AddNode button */
@@ -295,7 +296,6 @@ public class GraphPanel {
 	private class ClearListener implements ActionListener {
 		/** Event handler for Clear button */
 		public void actionPerformed(ActionEvent e) {
-			mode = InputMode.CLEAR_CONTENT;
 			instr.setText("Previous content is removed.");
 			// Remove all nodes and edges in canvas and repaint it
 			canvas.graph.removeAll();
@@ -320,10 +320,17 @@ public class GraphPanel {
 					JFrame frame = new JFrame("User's input data of the nodes");
 					// Prompt the user to enter the input data and IDs of the nodes 
 					String dataNode = JOptionPane.showInputDialog(frame, "What's the data of this node?");
-					if (dataNode != null) {
+					if (dataNode != null && !dataNode.equals("")) {
 						canvas.graph.addNode(dataNode);
 						canvas.points.add(pointToCreate);
 						canvas.colors.add(Color.RED);
+					} else if (dataNode.equals("")) {
+						JFrame frame2 = new JFrame("");
+						// Warning
+						JOptionPane.showMessageDialog(frame2,
+								"Node can't have an empty string as its data to avoid confusion.",
+								"Input Warning",
+								JOptionPane.WARNING_MESSAGE);
 					}
 				} 
 				canvas.repaint();
@@ -558,8 +565,6 @@ public class GraphPanel {
 				}
 				canvas.repaint();
 				break;	
-			case CLEAR_CONTENT:
-				break;
 			}
 		}
 

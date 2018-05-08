@@ -2,16 +2,20 @@ import javax.swing.JComponent;
 import java.util.*;
 import java.util.Timer;
 import java.awt.*;
-import javax.swing.*;  
 
 /**
- *  Canvas subclass for ArrayList depiction inspired by Ha Cao's original GraphCanvas class 
+ *  A class to implement a graphical canvas that displays an ArrayList
+ *  elements demonstrated by rectangles
  *
- *  @author  Sarah Abowitz
- *  @version April 8th 2018
+ *  @author  Ha Cao Sarah Abowitz
+ *  @version May 7th, 2018
  */
 
 public class ArrListCanvas extends JComponent{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Integer> arrList = new ArrayList<Integer>();
 	private ArrayList<String> aLAnnotations = new ArrayList<String>();
 	boolean addingToAL = false;
@@ -37,7 +41,6 @@ public class ArrListCanvas extends JComponent{
     	int j = 0;
     	Timer timer = new Timer();
     	long delay = 2500;
-    	boolean found = false;
     	//System.err.println("Stuff?" + Arrays.toString(arr));
     	for (j = 0; j <= arrList.size(); j++){
     		final int i = j;
@@ -78,10 +81,8 @@ public class ArrListCanvas extends JComponent{
     	addingToAL = true;
     	Timer timer = new Timer();
     	int bound = arrList.size();
-    	long delay = 1000;
     	int j;
     	for (j = 0; j <= arrList.size(); j++){
-    		final int i = j;
     		timer.schedule(new TimerTask(){
     			@Override 
     			public void run(){
@@ -114,7 +115,6 @@ public class ArrListCanvas extends JComponent{
     	addingToAL=false;
     	Timer timer = new Timer();
     	int bound = arrList.size();
-    	long delay = 1000;
     	for (int j = 0; j < arrList.size(); j++){
     		final int i = j;
     		timer.schedule(new TimerTask(){

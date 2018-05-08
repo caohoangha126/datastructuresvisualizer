@@ -3,10 +3,10 @@ import java.awt.*;
 import javax.swing.*;  
 
 /**
- *  Implement a graphical canvas that displays a graph of nodes (represented by points) and edges (represented by lines)
+ *  A class to implement a graphical canvas that displays a graph of nodes (represented by points) and edges (represented by lines)
  *
- *  @author  Ha Cao and Sarah Abowitz
- *  @version Apr 7th 2018
+ *  @author  Ha Cao
+ *  @version Apr 7th, 2018
  */
 class GraphCanvas extends JComponent {	
 	private static final long serialVersionUID = 1L;

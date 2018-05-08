@@ -3,6 +3,7 @@ import java.util.*;
 
 /**
  * A class to implement directed graph data structure
+ * 
  * @author Ha Cao
  * @version Apr 7th, 2018
  */
@@ -329,12 +330,7 @@ public class Graph<V,E>{
 		DistanceComparator comparator = new DistanceComparator();
 		// This priority queue helps sort the queue in terms of distance to the node in ascending order
 		PriorityQueue<Node> queue = new PriorityQueue<Node>(nodes.size(), comparator);
-
-		// Add all the nodes to the queue
-		for (int i = 0; i < nodes.size(); i++) {
-			queue.add(nodes.get(i));
-		}		
-
+		queue.add(start);
 		while(!queue.isEmpty()) {
 			// Remove the node with the shortest distance from the queue
 			Node currentPos = queue.poll();

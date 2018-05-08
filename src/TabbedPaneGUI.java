@@ -2,8 +2,8 @@ import java.awt.*;
 import javax.swing.*;
 
 /**
- * A tabbed pane GUI to display different data structures
- * @author Ha Cao and Sarah Abowitz
+ * A class to implement a tabbed pane GUI to display different data structures
+ * @author Ha Cao, Sarah Abowitz
  * @version Apr 7th, 2018
  */
 

@@ -1,15 +1,13 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Point2D;
-import java.io.PrintStream;
 import java.util.*;
-import java.util.Queue;
 import javax.swing.*;
 
 /**
- * A display panel for ArrayList simulation.
+ * A class to implement a graphical panel to display an ArrayList
+ * 
  * @author Ha Cao and Sarah Abowitz
- * @version Apr 8th, 2018
+ * @version May 7th, 2018
  */
 
 public class ArrListPanel {
