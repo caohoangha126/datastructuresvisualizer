@@ -49,6 +49,10 @@ public class GraphPanel {
 		gml = new GraphMouseListener();
 		instr = new JLabel("Click to add new nodes; drag to move.");
 		panel2 = new JPanel();
+		// The textbox is only added to the tab of Graph
+		// However, if there is an exception thrown from Array and ArrayList,
+		// the exception will show up in the textbox in the tab of Graph, 
+		// which is unwanted/unexpected
 		txtConsole = new JTextArea(20, 120);
 
 		// Now create a new TextAreaOutputStream to write to our JTextArea control and wrap a

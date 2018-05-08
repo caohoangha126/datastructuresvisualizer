@@ -136,7 +136,13 @@ public class ArrayPanel {
 	/** Listener for Create Array button */
 	private class createArrayListener implements ActionListener {
 		/** Event handler for Create Array button */
-		public void actionPerformed(ActionEvent e) {		
+		public void actionPerformed(ActionEvent e) {
+			// The input should have been accepted even if there are extra white spaces at the end
+			// but it would complicate the codes to get rid of the spaces at the end of the input string
+			// so if there are more than one white space at the end of the input string,
+			// which would cause an exception later on when the input string got split by " "
+			// so the program will just ask for another input when the input is in the wrong format
+			// and detailed instruction is given at the top of the GUI
 			instr.setText("Input the size of array, and then input the elements of the array, separated by a single white space, and ended with no more than one white space.");
 			defaultVar(canvas);
 			JFrame frame = new JFrame("User's input of the array");
@@ -158,6 +164,12 @@ public class ArrayPanel {
 						if (arrData != null) {
 							String[] elements = arrData.split(" ");
 							if (elements.length != arrSize) {
+								// Here when the resulting number of elements doesn't match the size of array that has been assigned
+								// The program should have been able to ask the user to re-enter a different input
+								// However, it takes a lot of steps to test whether an input actually qualifies the requirements
+								// Hence, the program will just output a warning and ask the user to re-click the button to enter another input
+								// This will simplify the codes, but I am aware that for the user experience, 
+								// it would be more effective if the user doesn't have to re-click at this point
 								Toolkit.getDefaultToolkit().beep();
 								// Warning
 								JOptionPane.showMessageDialog(frame,
