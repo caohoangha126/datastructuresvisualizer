@@ -97,6 +97,10 @@ public class ArrayCanvas extends JComponent {
     	}
     }
     
+    /**
+     * A method to access a certain element in the array
+     * @param index The index of the element that user wants to access
+     */
     public void arrAccess(int index){
     	access = index;
     	ArrayCanvas.this.repaint();

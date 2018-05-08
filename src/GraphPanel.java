@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 import java.io.PrintStream;
 import java.util.*;
 import java.util.Queue;
-import javax.swing.*;        
+import javax.swing.*;    
 
 /**
  * A class to implement a graphical panel to display a graph
@@ -212,9 +212,9 @@ public class GraphPanel {
 		ADD_NODES, RMV_NODES, ADD_EDGES, RMV_EDGES, BFT, DFT, SHORTEST_PATH_TO_ALL, SHORTEST_PATH_TO_ONE
 	}
 
-	/** Listener for AddNode button */
+	/** Listener for Add Node button */
 	private class AddNodeListener implements ActionListener {
-		/** Event handler for AddPoint button */
+		/** Event handler for Add Node button */
 		public void actionPerformed(ActionEvent e) {
 			mode = InputMode.ADD_NODES;
 			instr.setText("Click to add new nodes or change their location.");
@@ -222,9 +222,9 @@ public class GraphPanel {
 		}
 	}
 
-	/** Listener for RmvNode button */
+	/** Listener for Remove Node button */
 	private class RmvNodeListener implements ActionListener {
-		/** Event handler for RmvNode button */
+		/** Event handler for Remove Node button */
 		public void actionPerformed(ActionEvent e) {
 			mode = InputMode.RMV_NODES;
 			instr.setText("Click to remove existing nodes.");
@@ -232,9 +232,9 @@ public class GraphPanel {
 		}
 	}
 
-	/** Listener for AddEdge button */
+	/** Listener for Add Edge button */
 	private class AddEdgeListener implements ActionListener {
-		/** Event handler for AddEdge button */
+		/** Event handler for Add Edge button */
 		public void actionPerformed(ActionEvent e) {
 			mode = InputMode.ADD_EDGES;
 			instr.setText("Click head and tail respectively to add edge.");
@@ -242,9 +242,9 @@ public class GraphPanel {
 		}
 	}
 
-	/** Listener for RmvEdge button */
+	/** Listener for Remove Edge button */
 	private class RmvEdgeListener implements ActionListener {
-		/** Event handler for RmvEdge button */
+		/** Event handler for Remove Edge button */
 		public void actionPerformed(ActionEvent e) {
 			mode = InputMode.RMV_EDGES;
 			instr.setText("Click tail and head respectively to remove edge.");
@@ -274,7 +274,7 @@ public class GraphPanel {
 
 	/** Listener for Shortest Paths to All Nodes button */
 	private class ShortestPath1Listener implements ActionListener {
-		/** Event handler for ShortestPath1 button */
+		/** Event handler for Shortest Path 1 button */
 		public void actionPerformed(ActionEvent e) {
 			mode = InputMode.SHORTEST_PATH_TO_ALL;
 			instr.setText("Click a node to find shortest paths to other nodes.");
@@ -284,7 +284,7 @@ public class GraphPanel {
 
 	/** Listener for Shortest Path to One Node button */
 	private class ShortestPath2Listener implements ActionListener {
-		/** Event handler for ShortestPath2 button */
+		/** Event handler for Shortest Path 2 button */
 		public void actionPerformed(ActionEvent e) {
 			mode = InputMode.SHORTEST_PATH_TO_ONE;
 			instr.setText("Click two nodes to find shortest path.");
@@ -320,17 +320,17 @@ public class GraphPanel {
 					JFrame frame = new JFrame("User's input data of the nodes");
 					// Prompt the user to enter the input data and IDs of the nodes 
 					String dataNode = JOptionPane.showInputDialog(frame, "What's the data of this node?");
-					if (dataNode != null && !dataNode.equals("")) {
-						canvas.graph.addNode(dataNode);
-						canvas.points.add(pointToCreate);
-						canvas.colors.add(Color.RED);
-					} else if (dataNode.equals("")) {
+					if (dataNode.trim().length() == 0) {
 						JFrame frame2 = new JFrame("");
 						// Warning
 						JOptionPane.showMessageDialog(frame2,
-								"Node can't have an empty string as its data to avoid confusion.",
+								"Node can't have an all-white-space string as its data to avoid confusion.",
 								"Input Warning",
 								JOptionPane.WARNING_MESSAGE);
+					} else if (dataNode != null && !dataNode.equals("")) {
+						canvas.graph.addNode(dataNode);
+						canvas.points.add(pointToCreate);
+						canvas.colors.add(Color.RED);
 					}
 				} 
 				canvas.repaint();

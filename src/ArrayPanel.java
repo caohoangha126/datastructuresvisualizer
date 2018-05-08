@@ -61,19 +61,19 @@ public class ArrayPanel {
 		// Controls
 		panel2.setLayout(new GridLayout(5, 2));	
 		
-		JButton createArrayButton = new JButton("Create a customized array");
+		JButton createArrayButton = new JButton("Create Customized Array");
 		panel2.add(createArrayButton);
 		createArrayButton.addActionListener(new createArrayListener());
 
-		JButton changeValueButton = new JButton("Change value of an element");
+		JButton changeValueButton = new JButton("Change Element Value");
 		panel2.add(changeValueButton);
 		changeValueButton.addActionListener(new changeValueListener());
 
-		JButton accessButton = new JButton("Access an element by index");
+		JButton accessButton = new JButton("Access Element");
 		panel2.add(accessButton);
 		accessButton.addActionListener(new accessListener());
 		
-		JButton findButton = new JButton("Find an element in the array");
+		JButton findButton = new JButton("Search Element");
 		panel2.add(findButton);
 		findButton.addActionListener(new findListener());
 		
@@ -103,29 +103,41 @@ public class ArrayPanel {
 	
 	/** Constants for recording the input mode */
 	enum InputMode {
-		CREATE_ARRAY, CHANGE_VALUE, ACCESS
+		CHANGE_VALUE, ACCESS
 	}
 	
 	/**
 	 * A method to test if an array input is in correct format
 	 */
 	public static boolean isInRightFormat(String arrData) {
-		boolean isCorrect = true;
-		for (int i = 0; i < arrData.length(); i++) {
-			if ((arrData.charAt(i) < '0' || arrData.charAt(i) > '9') && (arrData.charAt(i) != ' ')) {
-				isCorrect = false;
-				break;
+		if (arrData != null) {
+			if (arrData.equals("")) {
+				return false;
+			} else {
+				boolean previousIsSpace = false;
+				for (int i = 0; i < arrData.length(); i++) {
+					if ((arrData.charAt(i) < '0' || arrData.charAt(i) > '9') && (arrData.charAt(i) != ' ')) {
+						return false;
+					} else {
+						if (previousIsSpace && arrData.charAt(i) == ' ') {
+							return false;
+						} else if (arrData.charAt(i) == ' ') {
+							previousIsSpace = true;
+						} else if (arrData.charAt(i) != ' ') {
+							previousIsSpace = false;
+						}
+					}
+				}
 			}
 		}
-		return isCorrect;
+		return true;
 	}
 	
-	/** Listener for createArray button */
+	/** Listener for Create Array button */
 	private class createArrayListener implements ActionListener {
-		/** Event handler for createArray button */
-		public void actionPerformed(ActionEvent e) {
-			mode = InputMode.CREATE_ARRAY;			
-			instr.setText("Input the size of array and content of array.");
+		/** Event handler for Create Array button */
+		public void actionPerformed(ActionEvent e) {		
+			instr.setText("Input the size of array, and then input the elements of the array, separated by a single white space, and ended with no more than one white space.");
 			defaultVar(canvas);
 			JFrame frame = new JFrame("User's input of the array");
 			// Prompt the user to enter the input the size and data of the array 
@@ -139,20 +151,29 @@ public class ArrayPanel {
 								  "For demo purpose, array size can't be bigger than 10. Please input the data again!"));
 					}
 					String arrData = JOptionPane.showInputDialog(frame, "List the elements of array separated by whitespace.");
-					while (!isInRightFormat(arrData)) {
-						arrData = JOptionPane.showInputDialog(frame, "Elements of array need to be separated by whitespace. Please re-try.");
+					if (arrData != null && !arrData.equals("")) {
+						while (!isInRightFormat(arrData)) {
+							arrData = JOptionPane.showInputDialog(frame, "Elements of array need to be separated by whitespace and be integers. Please re-try.");
+						}
+						if (arrData != null) {
+							String[] elements = arrData.split(" ");
+							if (elements.length != arrSize) {
+								Toolkit.getDefaultToolkit().beep();
+								// Warning
+								JOptionPane.showMessageDialog(frame,
+										"Wrong size of array. Please re-click the button.",
+										"Input Warning",
+										JOptionPane.WARNING_MESSAGE);
+							} else if (arrData.split(" ") != null) {
+								elements = arrData.split(" ");
+								canvas.arr = new int[arrSize];
+								for (int i = 0; i < elements.length; i++) {
+									canvas.arr[i] = Integer.parseInt(elements[i]);
+								}
+								canvas.repaint();
+							}
+						}
 					}
-					String[] elements = arrData.split(" ");
-					while (elements.length != arrSize) {
-						Toolkit.getDefaultToolkit().beep();
-						arrData = JOptionPane.showInputDialog(frame, "You didn't input the same number of elements as the assigned array size. Please input the data again!");
-						elements = arrData.split(" ");
-					}
-					canvas.arr = new int[arrSize];
-					for (int i = 0; i < elements.length; i++) {
-						canvas.arr[i] = Integer.parseInt(elements[i]);
-					}
-					canvas.repaint();
 				} catch(NumberFormatException error) {	
 					JFrame frame2 = new JFrame("");
 					// Warning
@@ -165,9 +186,9 @@ public class ArrayPanel {
 		}
 	}
 
-	/** Listener for changeValue button */ 
+	/** Listener for Change Value button */ 
 	private class changeValueListener implements ActionListener {
-		/** Event handler for changeValue button */
+		/** Event handler for Change Value button */
 		public void actionPerformed(ActionEvent e) {
 			mode = InputMode.CHANGE_VALUE;
 			instr.setText("Click an array element to change its value.");
@@ -175,23 +196,23 @@ public class ArrayPanel {
 		}
 	}
 	
-	/** Listener for access button */
+	/** Listener for Access button */
 	private class accessListener implements ActionListener {
-		/** Event handler for access button */
+		/** Event handler for Access button */
 		public void actionPerformed(ActionEvent e) {
 			mode = InputMode.ACCESS;
-			instr.setText("Click an element to access it.");
+			instr.setText("Click an element to access it. It will change to red.");
 			defaultVar(canvas);
 		}
 	}
 
-	/** Listener for find button */
+	/** Listener for Find button */
 	private class findListener implements ActionListener {
-		/** Event handler for find button */
+		/** Event handler for Find button */
 		public void actionPerformed(ActionEvent e) {
 			instr.setText("Click anywhere on the canvas to open the search dialog.");
 			defaultVar(canvas);
-			JFrame addQuery = new JFrame("Find a value.");
+			JFrame addQuery = new JFrame("Find a value");
 			String insertPlace = JOptionPane.showInputDialog(addQuery, "What integer are you looking for?");
 			if (insertPlace != null) {
 				try {
@@ -226,18 +247,17 @@ public class ArrayPanel {
 		/** Responds to click event depending on mode */
 		public void mouseClicked(MouseEvent e) {
 			switch (mode) {
-			case CREATE_ARRAY:
-				break;
 			case CHANGE_VALUE:
 				Point accClick2 = new Point((int) e.getX(), (int) e.getY());
 				int[] mockArr = canvas.getArr();
 				int arrLen = canvas.getArr().length;
-				int itemClicked = 10; // if itemClicked stays at 10, no hitbox clicked
-				for (int i = 0; i < arrLen; i++){
+				int itemClicked = canvas.getArr().length; 
+				for (int i = 0; i < arrLen; i++) {
 					int y1 = 26+(60*i);
 					int y2 = 76+(60*i);
 					if (zoneClicked(22, 222, y1, y2, accClick2)) itemClicked = i;
-				} if(itemClicked < canvas.getArr().length){
+				} 
+				if (itemClicked < canvas.getArr().length){
 					JFrame addQuestion = new JFrame("Change an element");
 					String init = JOptionPane.showInputDialog(addQuestion, "What integer should go in arr[" + itemClicked + "]?");
 					if (init != null) {
@@ -254,20 +274,22 @@ public class ArrayPanel {
 									JOptionPane.WARNING_MESSAGE);
 						}
 					}
-				} 				
+				} else {
+					instr.setText("Failed click on elements. Click again.");
+				}				
 				canvas.repaint();
 				break;		
 			case ACCESS:
 				Point accClick = new Point((int) e.getX(), (int) e.getY()); 				
 				int arrLen2 = canvas.getArr().length;
-				int itemClicked2 = 10; // if itemClicked stays at 10, no hitbox clicked
+				int itemClicked2 = canvas.getArr().length; 
 				for (int i = 0; i < arrLen2; i++){
 					int y1 = 26+(60*i);
 					int y2 = 76+(60*i);
 					if (zoneClicked(22, 222, y1, y2, accClick)) itemClicked2 = i;
 				}
 				instr.setText("The item, if accessed, is in red.");
-				if(itemClicked2 < canvas.getArr().length){
+				if (itemClicked2 < canvas.getArr().length){
 					canvas.arrAccess(itemClicked2);
 				} else {
 					instr.setText("Failed click on elements. Click again.");
