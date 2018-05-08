@@ -1,0 +1,26 @@
+README
+Ha Cao
+Project datastructuresvisualizer
+May 8th, 2018
+
+1. How to run the program?
+
+- The program contains multiple .java files, so you'll need to compile all of them first.
+- After that, you'll run the TabbedPaneGUI.java. 
+It will launch a Java application and a GUI will show up. 
+- You may want to run this program in Eclipse. 
+If so, you'll need to make sure that the Execution Environment is JavaSE-1.8,
+and the Compiler compliance level is 1.8. 
+Otherwise, they wouldn't be compatible and the Java application wouldn't be able to launched.
+You won't have to compile all individual files if you run the program in Eclipse. 
+
+2. How to use the program?
+
+- On the GUI, there will be 3 tabs at the top, each tab representing a data structure. 
+By clicking each tab, you'll switch to a different data structure. 
+- On each tab, there will be some buttons on the right,
+and you can click them and follow whatever instructions you are given on the top of the tab,
+in order to manipulate the data structure with its given methods.
+- For Graph only, there will be a textbox on the left next to the buttons where the console output will show. 
+It is built so that you can read the results of traversal algorithms in the textbox right on the GUI,
+instead of having to read them from the console.
